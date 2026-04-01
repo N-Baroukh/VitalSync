@@ -48,16 +48,3 @@ Les secrets (mot de passe DB, Docker Hub) sont stockés dans GitHub Actions ou d
 | CI/CD | GitHub Actions | Pipeline multi-étapes avec intégration de secrets et health checks |
 | Supervision | Prometheus + Grafana + ELK | Collecte métriques, visualisation, alerting et logs centralisés |
 ---
-
-## 4. Schéma d’architecture simplifié
-
-```mermaid
-graph TD
-    A[Utilisateur] -->|HTTP| B[Frontend Nginx]
-    B -->|API requests| C[Backend Node.js]
-    C -->|SQL queries| D[PostgreSQL]
-    B -->|Static content| E[Browser]
-Le frontend sert le HTML et redirige les appels API vers le backend.
-Le backend gère la logique métier et communique avec la base de données.
-Tous les services peuvent être conteneurisés et orchestrés pour la production.
-```
