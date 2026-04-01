@@ -1,4 +1,4 @@
-# Utilise l'image Nginx officielle
+# Image Nginx officielle
 FROM nginx:alpine
 
 # Copier le fichier index.html

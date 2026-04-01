@@ -1,3 +1,4 @@
-node_modules/
-.env
-.idea/
+node_modules/ #dependences
+.env #environment variables
+.idea/ #IDEA files
+.vscode/ #VSCode files
