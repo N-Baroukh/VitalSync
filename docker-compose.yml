@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  #  Backend Node.js 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vitalsync-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@database:5432/${POSTGRES_DB}
+    depends_on:
+      - database
+    networks:
+      - vitalsync-net
+
+  #  Frontend Nginx 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: vitalsync-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - vitalsync-net
+
+  #  Database PostgreSQL 
+  database:
+    image: postgres:15-alpine
+    container_name: vitalsync-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - vitalsync-net
+
+#  Volumes persistants 
+volumes:
+  pgdata:
+
+#  Réseau personnalisé 
+networks:
+  vitalsync-net:
+    driver: bridge
